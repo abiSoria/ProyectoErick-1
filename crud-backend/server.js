@@ -1,4 +1,5 @@
 // crud-backend/server.js
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -21,20 +22,15 @@ mongoose.connect(MONGODB_URI)
     });
 
 // Modelo
-const Tarea = require('./models/Tareas');
-
-// ... código anterior
+// Nota: Se corrigió para usar './models/Tarea' si el archivo es Tarea.js (singular)
+// Si el archivo es Tareas.js (plural), dejar el plural. Aquí usamos Tarea.js basado en tu modelo.
+const Tarea = require('./models/Tarea'); 
 
 // --- Ruta de Verificación (Health Check) ---
 app.get('/', (req, res) => {
+    // Esta ruta se agregó para solucionar el error "Cannot GET /" en Render.
     res.send('API de Tareas funcionando correctamente.');
 });
-
-// --- Rutas CRUD (Endpoints) ---
-
-// C - Crear Tarea (POST)
-app.post('/api/tareas', async (req, res) => {
-// ... resto del código
 
 // --- Rutas CRUD (Endpoints) ---
 
@@ -52,7 +48,8 @@ app.post('/api/tareas', async (req, res) => {
 // R - Leer Todas las Tareas (GET)
 app.get('/api/tareas', async (req, res) => {
     try {
-        const tareas = await Tarea.find().sort({ createdAt: -1 });
+        // .sort({ createdAt: -1 }) ordena por más reciente primero
+        const tareas = await Tarea.find().sort({ createdAt: -1 }); 
         res.json(tareas);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -65,7 +62,7 @@ app.put('/api/tareas/:id', async (req, res) => {
         const tareaActualizada = await Tarea.findByIdAndUpdate(
             req.params.id, 
             req.body, 
-            { new: true, runValidators: true } 
+            { new: true, runValidators: true } // new: true devuelve el documento actualizado
         );
         if (!tareaActualizada) return res.status(404).json({ message: 'Tarea no encontrada' });
         res.json(tareaActualizada);
