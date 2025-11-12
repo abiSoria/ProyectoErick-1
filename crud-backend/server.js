@@ -24,7 +24,7 @@ mongoose.connect(MONGODB_URI)
 // Modelo
 // Nota: Se corrigió para usar './models/Tarea' si el archivo es Tarea.js (singular)
 // Si el archivo es Tareas.js (plural), dejar el plural. Aquí usamos Tarea.js basado en tu modelo.
-const Tarea = require('./models/Tarea'); 
+const Tarea = require('./models/Tareas'); 
 
 // --- Ruta de Verificación (Health Check) ---
 app.get('/', (req, res) => {
