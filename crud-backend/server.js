@@ -23,6 +23,19 @@ mongoose.connect(MONGODB_URI)
 // Modelo
 const Tarea = require('./models/Tareas');
 
+// ... código anterior
+
+// --- Ruta de Verificación (Health Check) ---
+app.get('/', (req, res) => {
+    res.send('API de Tareas funcionando correctamente.');
+});
+
+// --- Rutas CRUD (Endpoints) ---
+
+// C - Crear Tarea (POST)
+app.post('/api/tareas', async (req, res) => {
+// ... resto del código
+
 // --- Rutas CRUD (Endpoints) ---
 
 // C - Crear Tarea (POST)
